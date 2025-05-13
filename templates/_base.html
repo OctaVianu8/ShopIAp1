@@ -26,24 +26,22 @@
             <a class="nav-item nav-link {% if current_page == 'about' %}active{% endif %}" href="/about">About</a>
           </div>
           <!-- Navbar Right Side -->
-           {% if session.authenticated %}
-           <div class="navbar-nav ms-auto">
-            <div>
+          <div class="navbar-nav ms-auto">
               <a class="nav-item nav-link {% if current_page == 'cart' %}active{% endif %}" href="/cart">
                 Cart
                 {% if session.user.cart|length > 0 %}
                 <span class="badge bg-danger">{{ session.user.cart|length }}</span>
                 {% endif %}
               </a>
+              {% if session.authenticated %}
+              <a class="nav-item nav-link {% if current_page == 'account' %}active{% endif %}" href="/account">Account</a>
+              {% else %}
+                <a class="nav-item nav-link {% if current_page == 'login' %}active{% endif %}" href="/login">Login</a>
+                <a class="nav-item nav-link {% if current_page == 'register' %}active{% endif %}" href="/register">Register</a>
+              {% endif %}
+            
             </div>
-            <a class="nav-item nav-link {% if current_page == 'account' %}active{% endif %}" href="/account">Account</a>
-            </div>
-           {% else %}
-           <div class="navbar-nav ms-auto">
-             <a class="nav-item nav-link {% if current_page == 'login' %}active{% endif %}" href="/login">Login</a>
-             <a class="nav-item nav-link {% if current_page == 'register' %}active{% endif %}" href="/register">Register</a>
-           </div>
-           {% endif %}
+           
         </div>
       </div>
     </nav>

@@ -12,7 +12,7 @@ def init_defaults():
     session.setdefault("authenticated", False)
     session.setdefault("user", {
         "username": "",
-        "cart": []
+        "cart": {}
     })
     session.setdefault("error_msg", "")
     session.setdefault("error_message", "")
@@ -74,7 +74,7 @@ def register():
                 break
         else:
             # Add new user to the list
-            ALLOWED_USERS.append({"username": username, "pass": scripts.hash_password(password), "cart": []})
+            ALLOWED_USERS.append({"username": username, "pass": scripts.hash_password(password), "cart": {}})
             # Save updated list to users.json
             with open("users.json", "w") as f:
                 json.dump(ALLOWED_USERS, f)
@@ -87,6 +87,10 @@ def register():
 @app.route("/logout")
 def logout():
     session["authenticated"] = False
+    session["user"] = {
+        "username": "",
+        "cart": {}
+    }
     return redirect("/")
 
 @app.route("/account", methods=["GET", "POST"])
@@ -119,46 +123,68 @@ def error404(code):
     # bonus: make it show a fancy HTTP 404 error page, with red background and bold message ;) 
     return "HTTP Error 404 - Page Not Found :(("
 
-@app.route("/cart/add/<product_id>", methods=["POST", "GET"])
+@app.route("/cart/add-item/<product_id>", methods=["POST", "GET"])
 def add_to_cart(product_id):
     user = session["user"]
     cart = session["user"]["cart"]
-    
-    if product_id in cart:
-        print("Product already in cart")
-        return redirect("/")
+    print(user)
     
     scripts.add_to_cart_in_account(session["user"]["username"], product_id)
     
-    cart.append(product_id)
+    if product_id in cart:
+        cart[product_id] += 1
+    else:
+        cart[product_id] = 1
+    
     user["cart"] = cart
     session["user"] = user
     
-    return redirect("/")
+    return redirect("/cart")
 
-@app.route("/cart/remove/<product_id>", methods=["POST", "GET"])
+@app.route("/cart/remove-item/<product_id>", methods=["POST", "GET"])
 def remove_from_cart(product_id):
     user = session["user"]
     cart = session["user"]["cart"]
     
+    scripts.remove_from_cart_in_account(session["user"]["username"], product_id)
+    
     if product_id in cart:
-        scripts.remove_from_cart_in_account(session["user"]["username"], product_id)
-        cart.remove(product_id)
-        user["cart"] = cart
-        session["user"] = user
+        if cart[product_id] > 1:
+            cart[product_id] -= 1
+        else:
+            del cart[product_id]
+    
+    user["cart"] = cart
+    session["user"] = user
+    
     return redirect("/cart")
 
-@app.route("/cart")
-def cart():
-    
-    # Filter the cart items based on the product IDs
+@app.route("/checkout")
+def checkout():
     cart_items = []
     with open("products.json", "r") as f:
         products = json.load(f)
-    print(session["user"])
-    for id in session["user"]["cart"]:
-        if id in products:
-            cart_items.append(products[id])
+    print(session["user"]["cart"])
+    for item_id in session["user"]["cart"]:
+        if item_id in products:
+            products[item_id]["quantity"] = session["user"]["cart"][item_id]
+            cart_items.append(products[item_id])
+            
+    # Calculate the total price of the cart items
+    total_price = sum(item["price"] for item in cart_items)
+    
+    return render_template("checkout.html", cart_items=cart_items, current_page="checkout", total_price=total_price)
+
+@app.route("/cart")
+def cart():
+    cart_items = []
+    with open("products.json", "r") as f:
+        products = json.load(f)
+    print(session["user"]["cart"])
+    for item_id in session["user"]["cart"]:
+        if item_id in products:
+            products[item_id]["quantity"] = session["user"]["cart"][item_id]
+            cart_items.append(products[item_id])
             
     # Calculate the total price of the cart items
     total_price = sum(item["price"] for item in cart_items)

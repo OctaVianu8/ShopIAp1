@@ -34,8 +34,10 @@ def add_to_cart_in_account(username: str, item: str):
             users = json.load(f)
         for user in users:
             if user["username"] == username:
-                user["cart"].append(item)
-                # print(user["cart"])
+                if item in user["cart"]:
+                    user["cart"][item] += 1
+                else:
+                    user["cart"][item] = 1
                 break
         else:
             return False  # User not found
@@ -54,7 +56,12 @@ def remove_from_cart_in_account(username: str, item: str):
         
         for user in users:
             if user["username"] == username:
-                user["cart"].remove(item)
+                if item in user["cart"]:
+                    user["cart"][item] -= 1
+                    if user["cart"][item] <= 0:
+                        del user["cart"][item]
+                else:
+                    return False
                 break
         else:
             return False  # User not found
