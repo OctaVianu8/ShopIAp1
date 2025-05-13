@@ -1,5 +1,6 @@
 {
     "laptoptralalero": {
+        "id": "laptoptralalero",
         "name": "Laptop",
         "price": 999.99,
         "category": "Electronics",
@@ -8,6 +9,7 @@
         "imageUrl": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpisces.bbystatic.com%2Fimage2%2FBestBuy_US%2Fimages%2Fproducts%2F6398%2F6398415cv1d.jpg&f=1&nofb=1&ipt=fee77b1c5d75ba80a90c5d19ba51ad1cb92872f920075ea232bcae8bf5e79778"
     },
     "smartfridge": {
+        "id": "smartfridge",
         "name": "Smart Fridge",
         "price": 1499.99,
         "category": "Electronics",
@@ -16,6 +18,7 @@
         "imageUrl": "public/images/smartfridge.jpg"
     },
     "toasterdeluxe": {
+        "id": "toasterdeluxe",
         "name": "Toaster Deluxe",
         "price": 89.99,
         "category": "Kitchen",
@@ -24,22 +27,25 @@
         "imageUrl": "public/images/toasterdeluxe.jpg"
     },
     "hoverbroom": {
+        "id": "hoverbroom",
         "name": "HoverBroom",
         "price": 299.99,
-        "category": "Home",
+        "category": "Misc",
         "inStock": true,
         "description": "Sweeps your floor and your enemies. Not legally classified as a drone… yet.",
         "imageUrl": "public/images/hoverbroom.jpg"
     },
     "quantumtoothbrush": {
+        "id": "quantumtoothbrush",
         "name": "Quantum Toothbrush",
         "price": 199.95,
         "category": "Health",
         "inStock": true,
-        "description": "Cleans your teeth in every parallel universe. Powered by mild existential dread.",
+        "description": "Cleans your teeth in every parallel universe. Powered by mild existential dread. Pretty cool, right?",
         "imageUrl": "public/images/quantumtoothbrush.png"
     },
     "couchpotato": {
+        "id": "couchpotato",
         "name": "Couch Potato",
         "price": 799.00,
         "category": "Furniture",
@@ -48,11 +54,12 @@
         "imageUrl": "public/images/couchpotato.jpg"
     },
     "mysterybox": {
+        "id": "mysterybox",
         "name": "Mystery Box",
         "price": 49.99,
         "category": "Misc",
         "inStock": true,
-        "description": "Could be a treasure. Could be socks. Schrödinger would be proud.",
+        "description": "Could be a treasure. Could be socks. Schrodinger would be proud.",
         "imageUrl": "public/images/mysterybox.png"
     }
 }

@@ -31,8 +31,8 @@
             <div>
               <a class="nav-item nav-link {% if current_page == 'cart' %}active{% endif %}" href="/cart">
                 Cart
-                {% if session.cart_count > 0 %}
-                <span class="badge bg-danger">{{ session.cart_count }}</span>
+                {% if session.user.cart|length > 0 %}
+                <span class="badge bg-danger">{{ session.user.cart|length }}</span>
                 {% endif %}
               </a>
             </div>
