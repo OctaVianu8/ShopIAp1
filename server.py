@@ -159,19 +159,61 @@ def remove_from_cart(product_id):
     
     return redirect("/cart")
 
-@app.route("/checkout")
+@app.route("/checkout", methods=["POST", "GET"])
 def checkout():
     cart_items = []
     with open("products.json", "r") as f:
         products = json.load(f)
-    print(session["user"]["cart"])
+    # print(session["user"]["cart"])
+    total_price = 0
     for item_id in session["user"]["cart"]:
         if item_id in products:
             products[item_id]["quantity"] = session["user"]["cart"][item_id]
             cart_items.append(products[item_id])
+            total_price += products[item_id]["price"] * products[item_id]["quantity"]
             
-    # Calculate the total price of the cart items
-    total_price = sum(item["price"] for item in cart_items)
+    if request.method == "POST":
+        # Process the order here
+        full_name = request.form.get("full_name", "")
+        email = request.form.get("email", "")
+        phone = request.form.get("phone", "")
+        address = request.form.get("address", "")
+        
+        # Read orders.json file
+        with open("submitted-data/orders.json", "r") as f:
+            orders = json.load(f)
+            
+        # write to submitted-data/orders.json
+        with open("submitted-data/orders.json", "w") as f:
+            order = {
+                "username": session["user"]["username"],
+                "full_name": full_name,
+                "email": email,
+                "phone": phone,
+                "address": address,
+                "cart": session["user"]["cart"],
+                "total_price": total_price
+            }
+            orders.append(order)
+            json.dump(orders, f)
+            
+        # Clear the cart
+        session["user"]["cart"] = {}
+        user = session["user"]
+        user["cart"] = {}
+        session["user"] = user
+        # Save the updated cart to users.json
+        with open(USERS_FILE, "r") as f:
+            users = json.load(f)
+        for user in users:
+            if user["username"] == session["user"]["username"]:
+                user["cart"] = {}
+                break
+        with open(USERS_FILE, "w") as f:
+            json.dump(users, f)
+        # Show success message
+        # flash("Order placed successfully!", "success")
+        return redirect("/")
     
     return render_template("checkout.html", cart_items=cart_items, current_page="checkout", total_price=total_price)
 
@@ -180,14 +222,15 @@ def cart():
     cart_items = []
     with open("products.json", "r") as f:
         products = json.load(f)
-    print(session["user"]["cart"])
+    # print(session["user"]["cart"])
+    total_price = 0
     for item_id in session["user"]["cart"]:
         if item_id in products:
             products[item_id]["quantity"] = session["user"]["cart"][item_id]
             cart_items.append(products[item_id])
+            total_price += products[item_id]["price"] * products[item_id]["quantity"]
             
     # Calculate the total price of the cart items
-    total_price = sum(item["price"] for item in cart_items)
     
     return render_template("cart.html", cart_items=cart_items, current_page="cart", total_price=total_price)
 

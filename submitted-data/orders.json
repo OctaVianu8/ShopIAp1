@@ -1,0 +1,15 @@
+[
+    {
+        "username": "octa",
+        "full_name": "asdfgh",
+        "email": "stanescu.matei.octavian@gmail.com",
+        "phone": "2345678",
+        "address": "asdfggfhjk",
+        "cart": {
+            "couchpotato": 1,
+            "laptoptralalero": 1,
+            "toasterdeluxe": 1
+        },
+        "total_price": 1190
+    }
+]

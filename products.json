@@ -2,7 +2,7 @@
     "laptoptralalero": {
         "id": "laptoptralalero",
         "name": "Laptop",
-        "price": 999.99,
+        "price": 1000,
         "category": "Electronics",
         "inStock": true,
         "description": "A high-performance laptop with 16GB RAM and 512GB SSD.",
@@ -11,7 +11,7 @@
     "smartfridge": {
         "id": "smartfridge",
         "name": "Smart Fridge",
-        "price": 1499.99,
+        "price": 1200,
         "category": "Electronics",
         "inStock": true,
         "description": "Knows when you're sad and offers ice cream. WiFi-enabled, because why not?",
@@ -20,7 +20,7 @@
     "toasterdeluxe": {
         "id": "toasterdeluxe",
         "name": "Toaster Deluxe",
-        "price": 89.99,
+        "price": 90,
         "category": "Kitchen",
         "inStock": false,
         "description": "Toasts bread, insults your cooking. Two settings: warm and flame-thrower.",
@@ -29,7 +29,7 @@
     "hoverbroom": {
         "id": "hoverbroom",
         "name": "HoverBroom",
-        "price": 299.99,
+        "price": 300,
         "category": "Misc",
         "inStock": true,
         "description": "Sweeps your floor and your enemies. Not legally classified as a drone… yet.",
@@ -38,7 +38,7 @@
     "quantumtoothbrush": {
         "id": "quantumtoothbrush",
         "name": "Quantum Toothbrush",
-        "price": 199.95,
+        "price": 200,
         "category": "Health",
         "inStock": true,
         "description": "Cleans your teeth in every parallel universe. Powered by mild existential dread. Pretty cool, right?",
@@ -47,7 +47,7 @@
     "couchpotato": {
         "id": "couchpotato",
         "name": "Couch Potato",
-        "price": 799.00,
+        "price": 100,
         "category": "Furniture",
         "inStock": false,
         "description": "Ergonomic couch with built-in snack compartments. Lazy mode included by default.",
@@ -56,7 +56,7 @@
     "mysterybox": {
         "id": "mysterybox",
         "name": "Mystery Box",
-        "price": 49.99,
+        "price": 50,
         "category": "Misc",
         "inStock": true,
         "description": "Could be a treasure. Could be socks. Schrodinger would be proud.",

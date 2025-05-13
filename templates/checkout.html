@@ -1,5 +1,89 @@
 {% extends "_base.html" %}
-
 {% block main_content %}
+<div class="container my-5">
+  <div class="row g-5">
+    <!-- Billing Form -->
+    <div class="col-md-7">
+      <h4 class="mb-3">Billing address</h4>
+      <form method="post" action="/checkout">
 
-{% endblock main_content %}
+        <div class="mb-3">
+          <label for="full_name" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="full_name" name="full_name" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input type="phone" class="form-control" id="phone" name="phone" placeholder="+40 123 456 789" required>
+          </div>
+
+        <div class="mb-3">
+          <label for="address" class="form-label">Address</label>
+          <textarea class="form-control" id="address" name="address" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="payment_method" class="form-label">Payment Method</label>
+            <select class="form-select" id="payment_method" name="payment_method" required>
+                <option value="">Choose...</option>
+                <option value="card">Card</option>
+                <option value="bank-transfer">Bank Transfer</option>
+                <option value="cash">Cash</option>
+              </select>
+        </div>
+
+        <hr class="my-4">
+
+        <button class="btn btn-primary btn-lg w-100" type="submit">Place Order</button>
+      </form>
+    </div>
+
+    <!-- Cart Summary -->
+    <div class="col-md-5">
+      <h4 class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-primary">Your cart</span>
+        <span class="badge bg-primary rounded-pill">{{ cart_items|length }}</span>
+      </h4>
+
+      <ul class="list-group mb-3">
+        {% for item in cart_items %}
+        <li class="list-group-item d-flex justify-content-between lh-sm">
+          <div>
+            <h6 class="my-0">{{ item.name }}</h6>
+            <small class="text-muted">{{ item.description }}</small>
+          </div>
+          <span class="text-muted">${{ item.price }}</span>
+        </li>
+        {% endfor %}
+
+        {% if promo_code %}
+        <li class="list-group-item d-flex justify-content-between bg-light">
+          <div class="text-success">
+            <h6 class="my-0">Promo code</h6>
+            <small>{{ promo_code.code }}</small>
+          </div>
+          <span class="text-success">−${{ promo_code.discount }}</span>
+        </li>
+        {% endif %}
+
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Total (USD)</span>
+          <strong>${{ total_price }}</strong>
+        </li>
+      </ul>
+
+      <form method="post" action="/apply_promo">
+        <div class="input-group">
+          <input type="text" class="form-control" name="promo_code" placeholder="Promo code">
+          <button type="submit" class="btn btn-secondary">Redeem</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
