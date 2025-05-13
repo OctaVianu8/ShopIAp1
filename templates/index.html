@@ -1,0 +1,21 @@
+{% extends "_base.html" %} 
+
+{% block main_content %}
+<h1>Welcome to HomeBundle!</h1>
+
+<div class="d-flex flex-wrap p-2">
+    {% for key, product in products.items() %}
+        <div class="card p-2" style="width: 18rem; margin: 10px;"> 
+            <img src={{ product["imageUrl"] }} class="card-img-top" alt="{{ product["name"] }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ product["name"] }}</h5>
+                <p class="card-text">{{ product["description"] }}</p>
+                <p class="card-text">Price: ${{ product["price"] }}</p>
+                <a href="/product/{{ key }}" class="btn btn-primary">View Product</a>
+                <a href="/cart/add/{{ key }}" class="btn btn-secondary">Add to Cart</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock main_content %} 

@@ -1,0 +1,36 @@
+{% extends "_base.html" %}
+{% block main_content %}
+
+<div class="container mt-4">
+  <h2>Your Shopping Cart</h2>
+
+  {% if cart_items %}
+    <div class="row mt-4">
+      {% for product in cart_items %}
+      <div class="card p-2" style="width: 18rem; margin: 10px;"> 
+        <img src={{ product["imageUrl"] }} class="card-img-top" alt="{{ product["name"] }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ product["name"] }}</h5>
+            <p class="card-text">{{ product["description"] }}</p>
+            <p class="card-text">Price: ${{ product["price"] }}</p>
+            <p class="card-text">Quantity: {{ product["quantity"] }}</p>
+            <a href="/product/{{ key }}" class="btn btn-primary">View Product</a>
+            <a href="/cart/remove/{{ key }}" class="btn btn-secondary">-</a>
+        </div>
+    </div>
+      {% endfor %}
+    </div>
+
+    <div class="mt-4">
+      <h4>Total: ${{ total_price }}</h4>
+      <a href="/checkout" class="btn btn-success mt-2">Proceed to Checkout</a>
+    </div>
+
+  {% else %}
+    <div class="alert alert-info mt-4">
+      Your cart is empty.
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link href="./public/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Website CSS -->
+  <link rel="stylesheet" type="text/css" href="./public/style.css">
+
+  <title>HomeBundle</title>
+</head>
+<body>
+  <header class="site-header">
+    <!-- This is the menu -->
+    <nav class="navbar navbar-expand-md navbar-dark">
+      <div class="container flex">
+        <a class="navbar-brand mr-4" href="/">HomeBundle</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mr-auto">
+            <a class="nav-item nav-link {% if current_page == 'home' %}active{% endif %}" href="/">Home</a>
+            <a class="nav-item nav-link {% if current_page == 'about' %}active{% endif %}" href="/about">About</a>
+          </div>
+          <!-- Navbar Right Side -->
+           {% if session.authenticated %}
+           <div class="navbar-nav ms-auto">
+            <div>
+              <a class="nav-item nav-link {% if current_page == 'cart' %}active{% endif %}" href="/cart">
+                Cart
+                {% if session.cart_count > 0 %}
+                <span class="badge bg-danger">{{ session.cart_count }}</span>
+                {% endif %}
+              </a>
+            </div>
+            <a class="nav-item nav-link {% if current_page == 'account' %}active{% endif %}" href="/account">Account</a>
+            </div>
+           {% else %}
+           <div class="navbar-nav ms-auto">
+             <a class="nav-item nav-link {% if current_page == 'login' %}active{% endif %}" href="/login">Login</a>
+             <a class="nav-item nav-link {% if current_page == 'register' %}active{% endif %}" href="/register">Register</a>
+           </div>
+           {% endif %}
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main role="main" class="container">
+    <div class="content-box main-content">
+        {% block main_content %}
+        {% endblock main_content %}
+    </div>
+  </main>
+
+  <!-- Include Bootstrap script -->
+  <script src="./public/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
