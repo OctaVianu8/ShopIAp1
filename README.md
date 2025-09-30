@@ -1,6 +1,6 @@
 # HomeBundle
 
-This website is used to sell stuff online
+This website is used to sell stuff online. It was developed for a university project assignment.
 
 ## Compulsory Features:
 
